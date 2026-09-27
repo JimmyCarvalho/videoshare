@@ -173,7 +173,8 @@ async function fetchBin(path, size, onProgress) {
 }
 async function blobUrl(id, type, size, onProgress) {
   if (cache.has(id)) return cache.get(id);
-  const url = URL.createObjectURL(new Blob([await open(await fetchBin('d/' + id, size, onProgress))], { type }));
+  // o catálogo traz o caminho do arquivo (pode estar em outro repositório do mesmo domínio); os antigos só o nome
+  const url = URL.createObjectURL(new Blob([await open(await fetchBin(id.includes('/') ? id : 'd/' + id, size, onProgress))], { type }));
   cache.set(id, url);
   return url;
 }
