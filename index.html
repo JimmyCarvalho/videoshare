@@ -98,8 +98,48 @@ header.top h1 { margin: 6px 0 0; font-size: 34px; font-weight: 400; }
 .info .dur b { color: var(--text); font-weight: 600; }
 .tag.v2 { background: #a855f7; }
 .topo-dir { display: grid; gap: 10px; justify-items: end; }
-.btn.pedir { text-decoration: none; color: #fff; }
-.btn.pedir:not([hidden]) { display: inline-block; }
+.btn.pedir { color: #fff; }
+[hidden] { display: none !important; }
+dialog.pedido { width: min(640px, calc(100vw - 24px)); max-height: calc(100vh - 24px); padding: 0; border: 1px solid var(--border); border-radius: 20px; background: var(--panel); color: var(--text); box-shadow: 0 40px 120px rgba(0,0,0,.7); }
+dialog.pedido::backdrop { background: rgba(0,0,0,.7); backdrop-filter: blur(3px); }
+.ped-in { padding: 22px 22px 24px; display: grid; gap: 16px; }
+.ped-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; }
+.ped-top h2 { margin: 0; font-family: Newsreader, Georgia, serif; font-style: italic; font-weight: 400; font-size: 30px; line-height: 1.1; }
+.ped-top p { margin: 6px 0 0; color: var(--muted); font-size: 13.5px; line-height: 1.55; max-width: 52ch; }
+.fechar { background: none; border: 1px solid var(--border); border-radius: 10px; width: 36px; height: 36px; cursor: pointer; flex: none; font-size: 18px; line-height: 1; }
+.abas { display: flex; gap: 6px; }
+.abas button { background: var(--panel-2); border: 1px solid var(--border); border-radius: 999px; padding: 7px 13px; font-size: 13px; font-weight: 600; cursor: pointer; color: #c9c9d1; }
+.abas button[aria-pressed="true"] { border-color: var(--primary); background: var(--primary-soft); color: #fff; }
+.ped-form { display: grid; gap: 14px; }
+.campo { display: grid; gap: 6px; }
+.campo > label, .campo > span.rot { font-size: 13px; font-weight: 600; color: #d4d4dc; }
+.campo small { color: var(--muted); font-weight: 500; }
+.ped-form input[type=text], .ped-form input[type=date], .ped-form input[type=number], .ped-form textarea { width: 100%; background: var(--panel-2); border: 1px solid var(--border); border-radius: 10px; padding: 10px 12px; font: inherit; font-size: 14.5px; color: var(--text); }
+.ped-form textarea { min-height: 110px; resize: vertical; line-height: 1.5; }
+.ped-form input:focus-visible, .ped-form textarea:focus-visible { outline: 2px solid var(--primary); outline-offset: 1px; }
+.chips { display: flex; flex-wrap: wrap; gap: 6px; }
+.chip { position: relative; }
+.chip input { position: absolute; inset: 0; opacity: 0; margin: 0; cursor: pointer; }
+.chip span { display: inline-block; padding: 6px 11px; border-radius: 999px; border: 1px solid var(--border); background: var(--panel-2); font-size: 13px; font-weight: 600; color: #c9c9d1; }
+.chip input:checked + span { border-color: var(--primary); background: var(--primary-soft); color: #fff; }
+.chip input:focus-visible + span { outline: 2px solid var(--primary); outline-offset: 2px; }
+.linha2 { display: grid; grid-template-columns: 1fr 1fr auto; gap: 12px; align-items: end; }
+@media (max-width: 560px) { .linha2 { grid-template-columns: 1fr 1fr; } }
+.urg { display: flex; align-items: center; gap: 8px; font-size: 13.5px; font-weight: 600; padding-bottom: 10px; cursor: pointer; }
+.urg input { width: 18px; height: 18px; accent-color: var(--primary); }
+.regras { margin: 0; padding: 12px 14px; border-radius: 12px; border: 1px dashed var(--border); background: var(--panel-2); color: var(--muted); font-size: 12.5px; line-height: 1.55; }
+.regras b { color: #d4d4dc; }
+.envio { display: grid; gap: 10px; padding: 14px; border-radius: 12px; border: 1px solid var(--primary); background: var(--primary-soft); font-size: 13.5px; line-height: 1.55; }
+.envio code { font-family: ui-monospace, Menlo, monospace; font-size: 13px; background: var(--panel); padding: 2px 6px; border-radius: 6px; user-select: all; }
+.envio .acoes2 { display: flex; flex-wrap: wrap; gap: 8px; }
+.lista-ped { display: grid; gap: 10px; }
+.item-ped { padding: 12px 14px; border-radius: 12px; border: 1px solid var(--border); border-left: 3px solid var(--cor, var(--border)); background: var(--panel-2); display: grid; gap: 6px; }
+.item-ped .cab { display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 10px; }
+.item-ped b { font-size: 14.5px; flex: 1 1 200px; }
+.item-ped .st { font-size: 11.5px; font-weight: 800; letter-spacing: .03em; color: var(--cor); }
+.item-ped .mt { color: var(--muted); font-size: 12.5px; }
+.item-ped .rs { font-size: 13px; color: #d6d6dd; white-space: pre-line; }
+.vazio { padding: 22px; text-align: center; color: var(--muted); border: 1px dashed var(--border); border-radius: 12px; font-size: 13.5px; }
 @media (max-width: 820px) { .topo-dir { justify-items: start; } }
 .note { margin-top: 40px; color: var(--muted); font-size: 13px; line-height: 1.6; }
 @media (max-width: 820px) {
@@ -131,11 +171,64 @@ header.top h1 { margin: 6px 0 0; font-size: 34px; font-weight: 400; }
       <span class="brand"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg>RCO Dash</span>
       <h1 class="serif">Vídeos do RCO Dash</h1>
     </div>
-    <div class="topo-dir"><a class="btn pedir" id="pedir" target="_blank" rel="noopener" hidden>Pedir um vídeo ↗</a><div class="specs" id="specs"></div></div>
+    <div class="topo-dir"><button class="btn pedir" id="pedir" type="button" hidden>Pedir um vídeo</button><div class="specs" id="specs"></div></div>
   </header>
   <div class="legend" id="legend"></div>
   <nav class="toc" id="toc"></nav>
   <section id="list"></section>
+  <dialog class="pedido" id="pedido" aria-labelledby="ped-titulo">
+    <div class="ped-in">
+      <div class="ped-top">
+        <div>
+          <h2 id="ped-titulo">Pedir um vídeo</h2>
+          <p>Descreva o vídeo e toque em "Enviar pedido": o seu e-mail abre com tudo preenchido, e é só enviar. Os pedidos são conferidos às 8h49 e às 14h49 (horário de Brasília) e a resposta chega no seu e-mail.</p>
+        </div>
+        <button class="fechar" type="button" id="ped-fechar" aria-label="Fechar">×</button>
+      </div>
+      <div class="abas" role="group" aria-label="Seções">
+        <button type="button" id="aba-novo" aria-pressed="true">Novo pedido</button>
+        <button type="button" id="aba-lista" aria-pressed="false">Pedidos</button>
+      </div>
+      <form class="ped-form" id="ped-form" novalidate>
+        <div class="campo"><label for="p-titulo">O que você precisa</label><input type="text" id="p-titulo" maxlength="120" placeholder="Ex.: Reels do DAVI explicando a trava de alta"></div>
+        <div class="campo"><label for="p-desc">A ideia, com o máximo de detalhe</label><textarea id="p-desc" maxlength="3000" placeholder="Para quem é, o que a pessoa tem que sentir ou fazer depois de ver, onde vai rodar e o que não pode faltar."></textarea></div>
+        <div class="campo"><span class="rot" id="r-tipo">Tipo</span>
+          <div class="chips" role="radiogroup" aria-labelledby="r-tipo">
+            <label class="chip"><input type="radio" name="p-tipo" value="Reels orgânico" checked><span>Reels orgânico</span></label>
+            <label class="chip"><input type="radio" name="p-tipo" value="Anúncio"><span>Anúncio</span></label>
+            <label class="chip"><input type="radio" name="p-tipo" value="VSL"><span>VSL</span></label>
+            <label class="chip"><input type="radio" name="p-tipo" value="Tutorial"><span>Tutorial</span></label>
+            <label class="chip"><input type="radio" name="p-tipo" value="Outro"><span>Outro</span></label>
+          </div>
+        </div>
+        <div class="campo"><span class="rot" id="r-fmt">Formatos</span>
+          <div class="chips" aria-labelledby="r-fmt">
+            <label class="chip"><input type="checkbox" name="p-fmt" value="9:16" checked><span>9:16 Reels</span></label>
+            <label class="chip"><input type="checkbox" name="p-fmt" value="16:9"><span>16:9 YouTube</span></label>
+            <label class="chip"><input type="checkbox" name="p-fmt" value="4:5"><span>4:5 feed</span></label>
+            <label class="chip"><input type="checkbox" name="p-fmt" value="1:1"><span>1:1</span></label>
+          </div>
+        </div>
+        <div class="campo"><label for="p-tema">Recurso do app ou tema <small>(opcional)</small></label><input type="text" id="p-tema" maxlength="160" placeholder="Ex.: Estratégias Rápidas, Research, DAVI, curso"></div>
+        <div class="campo"><label for="p-ref">Um vídeo desta página que sirva de base <small>(opcional)</small></label><input type="text" id="p-ref" maxlength="160" placeholder="Ex.: no estilo do Tio do Zap"></div>
+        <div class="linha2">
+          <div class="campo"><label for="p-qtd">Quantos vídeos</label><input type="number" id="p-qtd" min="1" max="20" value="1"></div>
+          <div class="campo"><label for="p-prazo">Para quando <small>(opcional)</small></label><input type="date" id="p-prazo"></div>
+          <label class="urg"><input type="checkbox" id="p-urg">Urgente</label>
+        </div>
+        <div class="campo"><label for="p-nome">Seu nome</label><input type="text" id="p-nome" maxlength="60" placeholder="Para a resposta saber de quem é o pedido"></div>
+        <button class="btn" type="submit">Enviar pedido</button>
+        <div class="msg err" id="p-msg" role="status" aria-live="polite"></div>
+        <div class="envio" id="p-envio" hidden>
+          <span>Seu e-mail deve ter aberto com o pedido pronto: é só enviar. Se não abriu, copie o pedido e mande para <code id="p-email"></code>.</span>
+          <div class="acoes2"><button class="btn ghost" type="button" id="p-copiar">Copiar pedido</button><button class="btn ghost" type="button" id="p-abrir">Abrir o e-mail de novo</button></div>
+        </div>
+        <p class="regras"><b>O que não entra em nenhum vídeo:</b> promessa de ganho, preço, desconto ou prazo de oferta (isso fica na página de venda), recurso que ainda não está no ar, pessoa real sem autorização e logo de outras marcas. Números sempre ilustrativos, com aviso. Termos de opções vão com tradução. <b>Limite:</b> até 10 vídeos por dia; o que passar vai para a lista de aprovação e só é feito se o dono aprovar.</p>
+      </form>
+      <div class="lista-ped" id="ped-lista" hidden></div>
+    </div>
+  </dialog>
+
   <p class="note">Resolução cheia, 60 quadros por segundo, H.264 com áudio AAC (−14 LUFS). Telas e números são ilustrativos. Na primeira vez que abre um arquivo, o navegador baixa e decifra o vídeo inteiro antes de tocar.</p>
 </div>
 
@@ -201,7 +294,7 @@ const diaMes = (d) => (d ? d.slice(8, 10) + '/' + d.slice(5, 7) : '');
 
 function render({ videos, grupos, pedidos }) {
   $('#lock').style.display = 'none';
-  if (pedidos && /^https:\/\/claude\.ai\//.test(pedidos)) { $('#pedir').href = pedidos; $('#pedir').hidden = false; }
+  if (pedidos && typeof pedidos === 'object' && /^[^@\s]+@[^@\s]+$/.test(pedidos.email || '')) montaPedidos(pedidos);
   $('#app').style.display = 'block';
   const files = videos.reduce((n, v) => n + v.formatos.length, 0);
   const bytes = videos.reduce((n, v) => n + v.formatos.reduce((m, f) => m + f.tamanho, 0), 0);
@@ -256,6 +349,88 @@ function render({ videos, grupos, pedidos }) {
     secao(g.id || 'todos', g.teste ? 'testes' : '', g.teste ? 'TESTES' : 'APROVADOS', g.titulo, g.texto, g.resumo, doGrupo, primeira);
     primeira = false;
   });
+}
+
+// Pedidos de vídeo: o formulário monta um e-mail (assunto "[Pedido de vídeo] …") para o endereço do catálogo; a lista
+// mostra a situação de cada pedido, atualizada a cada conferência (campo pedidos.lista do catálogo cifrado).
+const SITU = {
+  novo: ['Recebido', '#7d97ff'], aguardando: ['Aguardando aprovação', '#b594ff'], em_producao: ['Em produção', '#f2b441'],
+  precisa_info: ['Precisa de informação', '#fb8a4c'], pronto: ['Pronto', '#3fcf8e'], recusado: ['Não vou fazer', '#6f6f7e'],
+};
+function montaPedidos({ email, lista = [] }) {
+  const dlg = $('#pedido');
+  $('#pedir').hidden = false;
+  $('#pedir').onclick = () => { dlg.showModal(); $('#p-titulo').focus(); };
+  $('#ped-fechar').onclick = () => dlg.close();
+  $('#p-email').textContent = email;
+  try { $('#p-nome').value = localStorage.getItem('rco-pedido-nome') || ''; } catch {}
+  const aba = (lista2) => {
+    $('#aba-novo').setAttribute('aria-pressed', String(!lista2));
+    $('#aba-lista').setAttribute('aria-pressed', String(lista2));
+    $('#ped-form').hidden = lista2;
+    $('#ped-lista').hidden = !lista2;
+  };
+  $('#aba-novo').onclick = () => aba(false);
+  $('#aba-lista').onclick = () => aba(true);
+  const box = $('#ped-lista');
+  box.textContent = '';
+  if (!lista.length) { const v = document.createElement('div'); v.className = 'vazio'; v.textContent = 'Nenhum pedido ainda. Os pedidos enviados aparecem aqui depois da conferência seguinte.'; box.append(v); }
+  for (const p of lista) {
+    const [nome, cor] = SITU[p.status] || [p.status, '#6f6f7e'];
+    const it = document.createElement('div'); it.className = 'item-ped'; it.style.setProperty('--cor', cor);
+    it.innerHTML = '<div class="cab"><b></b><span class="st"></span></div><div class="mt"></div><div class="rs"></div>';
+    $('b', it).textContent = p.titulo || 'Pedido';
+    $('.st', it).textContent = nome;
+    $('.mt', it).textContent = [p.quem, p.data && p.data.split('-').reverse().join('/'), p.quantidade > 1 ? p.quantidade + ' vídeos' : ''].filter(Boolean).join(' · ');
+    $('.rs', it).textContent = p.resposta || '';
+    if (!p.resposta) $('.rs', it).remove();
+    box.append(it);
+  }
+  let ultimo = null;
+  const texto = () => {
+    const fmts = [...document.querySelectorAll('input[name=p-fmt]:checked')].map((i) => i.value);
+    const qtd = Math.max(1, Math.min(20, Math.floor(Number($('#p-qtd').value) || 1)));
+    const linhas = [
+      'Pedido de vídeo pela página de vídeos do RCO Dash',
+      '',
+      'O que precisa: ' + $('#p-titulo').value.trim(),
+      'Tipo: ' + ((document.querySelector('input[name=p-tipo]:checked') || {}).value || 'Outro'),
+      'Formatos: ' + fmts.join(', '),
+      'Quantos vídeos: ' + qtd,
+      'Recurso ou tema: ' + ($('#p-tema').value.trim() || '-'),
+      'Vídeo de base: ' + ($('#p-ref').value.trim() || '-'),
+      'Para quando: ' + ($('#p-prazo').value ? $('#p-prazo').value.split('-').reverse().join('/') : '-'),
+      'Urgente: ' + ($('#p-urg').checked ? 'sim' : 'não'),
+      'Quem pediu: ' + $('#p-nome').value.trim(),
+      '',
+      'A ideia:',
+      $('#p-desc').value.trim(),
+    ];
+    return { assunto: '[Pedido de vídeo] ' + $('#p-titulo').value.trim(), corpo: linhas.join('\n'), fmts };
+  };
+  const abrir = (t) => { location.href = 'mailto:' + email + '?subject=' + encodeURIComponent(t.assunto) + '&body=' + encodeURIComponent(t.corpo); };
+  $('#ped-form').onsubmit = (ev) => {
+    ev.preventDefault();
+    const m = $('#p-msg');
+    if (!$('#p-titulo').value.trim()) { m.textContent = 'Diga o que você precisa.'; $('#p-titulo').focus(); return; }
+    if (!$('#p-desc').value.trim()) { m.textContent = 'Descreva a ideia.'; $('#p-desc').focus(); return; }
+    if (!$('#p-nome').value.trim()) { m.textContent = 'Coloque o seu nome.'; $('#p-nome').focus(); return; }
+    const t = texto();
+    if (!t.fmts.length) { m.textContent = 'Escolha pelo menos um formato.'; return; }
+    m.textContent = '';
+    try { localStorage.setItem('rco-pedido-nome', $('#p-nome').value.trim()); } catch {}
+    ultimo = t;
+    $('#p-envio').hidden = false;
+    abrir(t);
+  };
+  $('#p-abrir').onclick = () => ultimo && abrir(ultimo);
+  $('#p-copiar').onclick = async () => {
+    if (!ultimo) return;
+    const b = $('#p-copiar');
+    try { await navigator.clipboard.writeText('Para: ' + email + '\nAssunto: ' + ultimo.assunto + '\n\n' + ultimo.corpo); b.textContent = 'Copiado'; }
+    catch { b.textContent = 'Selecione e copie o endereço acima'; }
+    setTimeout(() => (b.textContent = 'Copiar pedido'), 1800);
+  };
 }
 
 function card(v, deGrupo, novo) {
