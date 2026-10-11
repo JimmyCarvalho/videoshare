@@ -243,9 +243,14 @@ let key = null;
 const cache = new Map();
 
 async function deriveKey(pass) {
-  const { sal, iter } = await (await fetch('k.json', { cache: 'no-store' })).json();
+  const { sal, iter, w } = await (await fetch('k.json', { cache: 'no-store' })).json();
   const base = await crypto.subtle.importKey('raw', new TextEncoder().encode(pass), 'PBKDF2', false, ['deriveBits']);
-  return new Uint8Array(await crypto.subtle.deriveBits({ name: 'PBKDF2', salt: fromB64(sal), iterations: iter, hash: 'SHA-256' }, base, 256));
+  const bits = new Uint8Array(await crypto.subtle.deriveBits({ name: 'PBKDF2', salt: fromB64(sal), iterations: iter, hash: 'SHA-256' }, base, 256));
+  if (!w) return bits;
+  // com "w", a senha abre a chave dos vídeos guardada cifrada no k.json: trocar a senha não exige recifrar os vídeos
+  const u8 = fromB64(w);
+  const wk = await crypto.subtle.importKey('raw', bits, 'AES-GCM', false, ['decrypt']);
+  return new Uint8Array(await crypto.subtle.decrypt({ name: 'AES-GCM', iv: u8.slice(0, 12) }, wk, u8.slice(12)));
 }
 async function open(buf) {
   const u8 = new Uint8Array(buf);
